@@ -1,6 +1,5 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -9,28 +8,46 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('group_accounts', {
+    await queryInterface.createTable('passwordbook_entries', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      group_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      users_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
-      private_shared: {
-        type: Sequelize.BOOLEAN,
+      user_name: {
+        type: Sequelize.STRING,
+      },
+      email: {
+        type: Sequelize.STRING,
+      },
+      password: {
         allowNull: false,
+        type: Sequelize.STRING,
+      },
+      group_accounts_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'group_accounts',
+          key: 'id',
+        },
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: new Date(),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
-        defaultValue: new Date(),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false,
       },
     });
   },
@@ -42,6 +59,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('group_accounts');
+    await queryInterface.dropTable('passwordbook_entries');
   },
 };

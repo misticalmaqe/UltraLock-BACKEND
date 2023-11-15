@@ -1,7 +1,5 @@
 'use strict';
 
-const { BULKDELETE } = require('sequelize/types/query-types');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -17,11 +15,11 @@ module.exports = {
     await queryInterface.bulkInsert('shared_accounts', [
       {
         group_accounts_id: 1,
-        user_id: 3,
+        users_id: 3,
       },
       {
         group_accounts_id: 1,
-        user_id: 2,
+        users_id: 2,
       },
     ]);
   },
