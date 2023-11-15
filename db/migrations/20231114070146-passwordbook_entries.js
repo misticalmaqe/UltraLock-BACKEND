@@ -33,6 +33,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      group_accounts_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'group_accounts',
+          key: 'id',
+        },
+      },
       created_at: {
         allowNull: false,
         defaultValue: new Date(),

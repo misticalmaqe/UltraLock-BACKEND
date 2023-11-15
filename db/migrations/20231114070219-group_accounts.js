@@ -16,13 +16,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      passwordbook_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'passwordbook_entries',
-          key: 'id',
-        },
-      },
       group_name: {
         type: Sequelize.STRING,
         allowNull: false,
