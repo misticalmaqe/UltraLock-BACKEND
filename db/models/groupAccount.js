@@ -9,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      GroupAccount.hasMany(models.pwBookEntry);
+      GroupAccount.hasMany(models.passwordbookEntries, {
+        foreignKey: 'groupAccountId',
+      });
       GroupAccount.belongsToMany(models.user, {
-        through: 'sharedAccount',
+        through: 'shared_accounts',
       });
     }
   }

@@ -15,14 +15,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      group_accounts_id: {
+      group_account_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'group_accounts',
           key: 'id',
         },
       },
-      users_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',

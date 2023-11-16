@@ -14,12 +14,12 @@ module.exports = {
      */
     await queryInterface.bulkInsert('shared_accounts', [
       {
-        group_accounts_id: 1,
-        users_id: 3,
+        group_account_id: 1,
+        user_id: 3,
       },
       {
-        group_accounts_id: 1,
-        users_id: 2,
+        group_account_id: 1,
+        user_id: 2,
       },
     ]);
   },

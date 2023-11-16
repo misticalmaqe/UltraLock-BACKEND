@@ -15,7 +15,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      users_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -32,7 +32,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      group_accounts_id: {
+      group_account_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'group_accounts',

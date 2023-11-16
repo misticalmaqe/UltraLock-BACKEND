@@ -17,20 +17,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   PwBookEntry.init(
     {
-      userName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'user',
+          model: 'users',
           key: 'id',
         },
       },
+      userName: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
       groupAccountId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         references: {
           model: 'groupAccount',
           key: 'id',
@@ -39,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'pwBookEntry',
+      modelName: 'passwordbookEntries',
       timestamps: true,
       underscored: true,
     }
