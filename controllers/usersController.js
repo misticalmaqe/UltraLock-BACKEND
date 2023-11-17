@@ -61,7 +61,7 @@ class UsersController extends BaseController {
   getShared = async (req, res) => {
     const { id } = req.params;
     try {
-      const sharedAccount = await this.model.findOne({
+      const sharedAccount = await this.model.findAll({
         where: { id },
         include: this.groupAccount,
       });
@@ -77,7 +77,7 @@ class UsersController extends BaseController {
       const user = await this.model.findByPk(userId);
       const groupAccount = await this.groupAccount.findByPk(groupAccountId);
 
-      await user.setGroupAccounts(groupAccount);
+      await user.addGroupAccount(groupAccount);
 
       res.json({ user, groupAccount, message: 'success' });
     } catch (err) {
@@ -92,6 +92,20 @@ class UsersController extends BaseController {
       const groupAccount = await this.groupAccount.findByPk(groupAccountId);
 
       await user.setGroupAccounts(groupAccount);
+
+      res.json({ user, groupAccount, message: 'success' });
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  };
+
+  sharedDelete = async (req, res) => {
+    const { userId, groupAccountId } = req.body;
+    try {
+      const user = await this.model.findByPk(userId);
+      const groupAccount = await this.groupAccount.findByPk(groupAccountId);
+
+      await user.removeGroupAccounts(groupAccount);
 
       res.json({ user, groupAccount, message: 'success' });
     } catch (err) {

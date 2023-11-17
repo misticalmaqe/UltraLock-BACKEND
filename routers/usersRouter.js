@@ -17,7 +17,7 @@ class UsersRouter {
     router.get('/shared/:id', this.controller.getShared);
     router.post('/shared/', this.controller.sharedAdd);
     router.put('/shared/:id', this.controller.sharedEdit);
-
+    router.delete('/shared/:id', this.controller.sharedDelete);
     return router;
   };
 }
