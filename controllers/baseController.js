@@ -14,6 +14,10 @@ class BaseController {
       return res.status(400).json({ error: true, msg: err });
     }
   };
+
+  jwtTest = async (req, res) => {
+    return res.json({ success: true, msg: 'you got me' });
+  };
 }
 
 module.exports = BaseController;

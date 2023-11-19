@@ -2,10 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 class UsersRouter {
-  constructor(controller) {
+  constructor(controller, jwtAuth) {
     this.controller = controller;
+    this.jwtAuth = jwtAuth;
   }
   routes = () => {
+    //jwt routes
+    router.get('/jwtTest', this.jwtAuth, this.controller.jwtTest);
+    router.post('/jwtsignup', this.controller.jwtSignUp);
+    router.post('/jwtsignin', this.controller.jwtSignIn);
+
     //for users
     router.get('/', this.controller.getAll);
     router.get('/:usersId', this.controller.getOne);
@@ -18,6 +24,7 @@ class UsersRouter {
     router.post('/shared/', this.controller.sharedAdd);
     router.put('/shared/:id', this.controller.sharedEdit);
     router.delete('/shared/:id', this.controller.sharedDelete);
+
     return router;
   };
 }
