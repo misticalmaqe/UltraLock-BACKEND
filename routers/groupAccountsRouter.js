@@ -8,6 +8,10 @@ class GroupAccountsRouter {
   routes = () => {
     //to get all
     router.get('/', this.controller.getAll);
+    router.get(
+      '/personal/:groupAccountIds',
+      this.controller.getMultiplePersonal
+    );
     router.get('/:groupAccountId', this.controller.getOne);
     router.post('/', this.controller.add);
     router.put('/:id', this.controller.edit);

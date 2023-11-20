@@ -148,7 +148,7 @@ class UsersController extends BaseController {
       expiresIn: '10mins',
     });
 
-    return res.json({ success: true, token });
+    return res.json({ success: true, token, payload });
   };
 
   jwtSignIn = async (req, res) => {
@@ -178,11 +178,11 @@ class UsersController extends BaseController {
       email,
     };
 
-    const token = jwt.sign(payload, 'iggyjaipalultralock', {
-      expiresIn: '10mins',
+    const token = jwt.sign(payload, SECRETKEY, {
+      expiresIn: '2mins',
     });
 
-    return res.json({ success: true, token });
+    return res.json({ success: true, token, payload });
   };
 }
 
