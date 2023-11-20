@@ -17,13 +17,16 @@ const PwBookEntryRouter = require('./routers/pwBookEntryRouter');
 const db = require('./db/models/index');
 const { user, groupAccount, passwordbookEntries } = db;
 
+//-----------Importing Middlewares-----------//
+const jwtAuth = require('./middlewares/jwtAuth');
+
 //-----------Initializing Controllers-----------//
 const usersController = new UsersController(user, groupAccount);
 const groupAccountsController = new GroupAccountsController(groupAccount);
 const pwBookEntryController = new PwBookEntryController(passwordbookEntries);
 
 //-----------Initializing Routers-----------//
-const usersRouter = new UsersRouter(usersController).routes();
+const usersRouter = new UsersRouter(usersController, jwtAuth).routes();
 const groupAccountsRouter = new GroupAccountsRouter(
   groupAccountsController
 ).routes();

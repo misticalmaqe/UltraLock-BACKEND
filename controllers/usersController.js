@@ -1,4 +1,10 @@
 const BaseController = require('./baseController');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+const SALTVALUE = process.env.DB_SALT;
+const SECRETKEY = process.env.DB_SECRETKEY;
 
 class UsersController extends BaseController {
   constructor(model, groupAccount) {
@@ -111,6 +117,72 @@ class UsersController extends BaseController {
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
     }
+  };
+
+  //sign up / sign in
+  jwtSignUp = async (req, res) => {
+    const { email, password } = req.body;
+
+    // data validation to confirm
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: true, msg: 'missing basic information' });
+    }
+
+    // hashpassword
+    const saltRounds = parseInt(process.env.DB_SALT);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = await this.model.create({
+      email,
+      password: hashedPassword,
+    });
+
+    const payload = {
+      id: newUser.id,
+      email,
+    };
+
+    const token = jwt.sign(payload, SECRETKEY, {
+      expiresIn: '10mins',
+    });
+
+    return res.json({ success: true, token });
+  };
+
+  jwtSignIn = async (req, res) => {
+    const { email, password } = req.body;
+
+    // data validation to confirm
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: true, msg: 'missing basic information' });
+    }
+
+    const user = await this.model.findOne({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ error: true, msg: 'user not found' });
+    }
+
+    const compare = await bcrypt.compare(password, user.password);
+    //true or false
+
+    if (!compare) {
+      return res.status(403).json({ error: true, msg: 'invalid password' });
+    }
+
+    const payload = {
+      id: user.id,
+      email,
+    };
+
+    const token = jwt.sign(payload, 'iggyjaipalultralock', {
+      expiresIn: '10mins',
+    });
+
+    return res.json({ success: true, token });
   };
 }
 
