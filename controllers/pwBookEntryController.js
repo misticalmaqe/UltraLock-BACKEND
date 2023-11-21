@@ -29,9 +29,14 @@ class PwBookEntryController extends BaseController {
 
   getByGroupId = async (req, res) => {
     const { groupAccountId } = req.params;
+    const userId = req.body;
+    //extract out the value and put into userIdValue
+    const userIdValue = userId.userId;
     try {
+      const idsArray = groupAccountId.split(',');
+
       const passwordbookEntry = await this.model.findAll({
-        where: { groupAccountId: groupAccountId },
+        where: { groupAccountId: idsArray, userId: userIdValue },
       });
       return res.json(passwordbookEntry);
     } catch (err) {

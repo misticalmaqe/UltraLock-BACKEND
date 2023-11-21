@@ -10,7 +10,7 @@ class PwBookEntryRouter {
     router.get('/', this.controller.getAll);
     router.get('/:passwordbookEntryId', this.controller.getOne);
     router.get('/allpw/:userId', this.controller.getByUserId);
-    router.get('/allpwbgid/:groupAccountId', this.controller.getByGroupId);
+    router.post('/allpwbgid/:groupAccountId', this.controller.getByGroupId);
     router.post('/', this.controller.add);
     router.put('/:id', this.controller.edit);
     router.delete('/:id', this.controller.delete);
