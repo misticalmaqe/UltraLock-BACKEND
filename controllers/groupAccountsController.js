@@ -6,6 +6,27 @@ class GroupAccountsController extends BaseController {
     this.user = user;
   }
 
+  getMultiplePersonal = async (req, res) => {
+    const { groupAccountIds } = req.params;
+
+    try {
+      // Split the comma-separated string of groupAccountIds into an array
+      const idsArray = groupAccountIds.split(',');
+
+      // Assuming your model has a field named 'id' for comparison
+      const groupAccounts = await this.model.findAll({
+        where: {
+          id: idsArray,
+          privateShared: false,
+        },
+      });
+
+      return res.status(200).json({ groupAccounts });
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  };
+
   getOne = async (req, res) => {
     const { groupAccountId } = req.params;
     try {
@@ -19,9 +40,8 @@ class GroupAccountsController extends BaseController {
   add = async (req, res) => {
     const newGroupAccount = req.body;
     try {
-      await this.model.create(newGroupAccount);
-      const data = await this.model.findAll();
-      res.json({ groupAccount: data, message: 'success' });
+      const data = await this.model.create(newGroupAccount);
+      res.json({ groupAccount: data });
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
     }
