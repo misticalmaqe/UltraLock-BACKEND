@@ -34,6 +34,26 @@ class UsersController extends BaseController {
     }
   };
 
+  getMultipleIds = async (req, res) => {
+    const { multipleEmails } = req.params;
+
+    try {
+      // Split the comma-separated string of groupAccountIds into an array
+      const idsArray = multipleEmails.split(',');
+
+      // Assuming your model has a field named 'id' for comparison
+      const userIds = await this.model.findAll({
+        where: {
+          email: idsArray,
+        },
+      });
+
+      return res.status(200).json({ userIds });
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  };
+
   // Method to add a new user
   add = async (req, res) => {
     const newUser = req.body;
@@ -123,7 +143,7 @@ class UsersController extends BaseController {
       await user.addGroupAccount(groupAccount);
 
       // Respond with JSON containing the user, group account, and a success message
-      res.json({ user, groupAccount, message: 'success' });
+      res.json({ user, groupAccount });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });

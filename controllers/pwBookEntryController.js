@@ -68,11 +68,10 @@ class PwBookEntryController extends BaseController {
     try {
       const pwBookToDelete = await this.model.findByPk(pwBookIdToDelete);
       await pwBookToDelete.destroy();
-      const checkGroupIds = await this.model.findAll();
-      res.json({ pwBooks: data, message: 'success' });
+      res.json({ message: 'success' });
     } catch (err) {
       console.error(err);
-      res.status(500).json({ message: 'Error deleting user' });
+      res.status(400).json({ message: 'Error deleting user' });
     }
   };
 }
