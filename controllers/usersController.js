@@ -1,14 +1,13 @@
 // Importing necessary modules and libraries
-const BaseController = require("./baseController");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
+const BaseController = require('./baseController');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 // Load environment variables from the .env file
 dotenv.config();
 
 // Retrieve environment variables
-const SALTVALUE = process.env.DB_SALT;
 const SECRETKEY = process.env.DB_SECRETKEY;
 
 // Define UsersController class extending BaseController
@@ -44,7 +43,7 @@ class UsersController extends BaseController {
       // Retrieve all users from the database
       const data = await this.model.findAll();
       // Respond with JSON containing the list of users and a success message
-      res.json({ user: data, message: "success" });
+      res.json({ user: data, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });
@@ -63,7 +62,7 @@ class UsersController extends BaseController {
       // Retrieve all users from the database
       const data = await this.model.findAll();
       // Respond with JSON containing the list of users and a success message
-      res.json({ user: data, message: "success" });
+      res.json({ user: data, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });
@@ -79,7 +78,7 @@ class UsersController extends BaseController {
 
       // Check if the user exists
       if (!userToDelete) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: 'User not found' });
       }
 
       // Delete the user from the database
@@ -87,11 +86,11 @@ class UsersController extends BaseController {
       // Retrieve all users from the database
       const data = await this.model.findAll();
       // Respond with JSON containing the list of users and a success message
-      res.json({ users: data, message: "success" });
+      res.json({ users: data, message: 'success' });
     } catch (err) {
       // Log the error and respond with an error JSON
       console.error(err);
-      res.status(500).json({ message: "Error deleting user" });
+      res.status(500).json({ message: 'Error deleting user' });
     }
   };
 
@@ -124,7 +123,7 @@ class UsersController extends BaseController {
       await user.addGroupAccount(groupAccount);
 
       // Respond with JSON containing the user, group account, and a success message
-      res.json({ user, groupAccount, message: "success" });
+      res.json({ user, groupAccount, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });
@@ -143,7 +142,7 @@ class UsersController extends BaseController {
       await user.setGroupAccounts(groupAccount);
 
       // Respond with JSON containing the user, group account, and a success message
-      res.json({ user, groupAccount, message: "success" });
+      res.json({ user, groupAccount, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });
@@ -162,7 +161,7 @@ class UsersController extends BaseController {
       await user.removeGroupAccounts(groupAccount);
 
       // Respond with JSON containing the user, group account, and a success message
-      res.json({ user, groupAccount, message: "success" });
+      res.json({ user, groupAccount, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });
@@ -177,7 +176,7 @@ class UsersController extends BaseController {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ error: true, msg: "Missing basic information" });
+        .json({ error: true, msg: 'Missing basic information' });
     }
 
     try {
@@ -187,7 +186,7 @@ class UsersController extends BaseController {
       if (existingUser) {
         return res.status(409).json({
           error: true,
-          msg: "Email already in use. Please use a different email address.",
+          msg: 'Email already in use. Please use a different email address.',
         });
       }
 
@@ -207,13 +206,13 @@ class UsersController extends BaseController {
       };
 
       const token = jwt.sign(payload, SECRETKEY, {
-        expiresIn: "10mins",
+        expiresIn: '10mins',
       });
 
       return res.json({ success: true, token, payload });
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ error: true, msg: "Error creating user" });
+      return res.status(500).json({ error: true, msg: 'Error creating user' });
     }
   };
 
@@ -225,18 +224,18 @@ class UsersController extends BaseController {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ error: true, msg: "Missing basic information" });
+        .json({ error: true, msg: 'Missing basic information' });
     }
 
     const user = await this.model.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ error: true, msg: "User not found" });
+      return res.status(400).json({ error: true, msg: 'User not found' });
     }
 
     const compare = await bcrypt.compare(password, user.password);
 
     if (!compare) {
-      return res.status(403).json({ error: true, msg: "Invalid password" });
+      return res.status(403).json({ error: true, msg: 'Invalid password' });
     }
 
     const payload = {
@@ -245,7 +244,7 @@ class UsersController extends BaseController {
     };
 
     const token = jwt.sign(payload, SECRETKEY, {
-      expiresIn: "10mins",
+      expiresIn: '10mins',
     });
 
     return res.json({ success: true, token, payload });
@@ -255,7 +254,7 @@ class UsersController extends BaseController {
   updatePassword = async (req, res) => {
     const { userId, currentPassword, newPassword } = req.body;
 
-    console.log("Received request to update password:", {
+    console.log('Received request to update password:', {
       userId,
       currentPassword,
       newPassword,
@@ -272,10 +271,10 @@ class UsersController extends BaseController {
       );
 
       if (!compare) {
-        console.log("Current password is incorrect");
+        console.log('Current password is incorrect');
         return res
           .status(403)
-          .json({ error: true, msg: "Current password is incorrect" });
+          .json({ error: true, msg: 'Current password is incorrect' });
       }
 
       // Hash the new password
@@ -285,18 +284,18 @@ class UsersController extends BaseController {
       // Update the user's password in the database
       await userToUpdate.update({ password: hashedNewPassword });
 
-      console.log("Password updated successfully");
+      console.log('Password updated successfully');
 
-      return res.json({ success: true, msg: "Password updated successfully" });
+      return res.json({ success: true, msg: 'Password updated successfully' });
     } catch (err) {
-      console.error("Error updating password:", err);
+      console.error('Error updating password:', err);
       return res
         .status(500)
-        .json({ error: true, msg: "Error updating password" });
+        .json({ error: true, msg: 'Error updating password' });
     }
   };
   changePassword = async (req, res) => {
-    const { newPassword, email, userId } = req.body;
+    const { newPassword, email } = req.body;
 
     try {
       const saltRounds = parseInt(process.env.DB_SALT);
@@ -306,8 +305,8 @@ class UsersController extends BaseController {
         { where: { email: email } }
       );
     } catch (error) {
-      console.error("Error changing password:", error);
-      res.status(500).json({ error: true, msg: "Internal Server Error" });
+      console.error('Error changing password:', error);
+      res.status(500).json({ error: true, msg: 'Internal Server Error' });
     }
   };
 }

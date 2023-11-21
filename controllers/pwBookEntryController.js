@@ -27,6 +27,18 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  getByGroupId = async (req, res) => {
+    const { groupAccountId } = req.params;
+    try {
+      const passwordbookEntry = await this.model.findAll({
+        where: { groupAccountId: groupAccountId },
+      });
+      return res.json(passwordbookEntry);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  };
+
   add = async (req, res) => {
     const newPwBookEntry = req.body;
     try {
@@ -56,7 +68,7 @@ class PwBookEntryController extends BaseController {
     try {
       const pwBookToDelete = await this.model.findByPk(pwBookIdToDelete);
       await pwBookToDelete.destroy();
-      const data = await this.model.findAll();
+      const checkGroupIds = await this.model.findAll();
       res.json({ pwBooks: data, message: 'success' });
     } catch (err) {
       console.error(err);
