@@ -44,6 +44,23 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  getByGroupIdForSA = async (req, res) => {
+    const { groupAccountId } = req.params;
+    const userId = req.body;
+    //extract out the value and put into userIdValue
+    const userIdValue = userId.userId;
+    try {
+      const idsArray = groupAccountId.split(',');
+
+      const passwordbookEntry = await this.model.findAll({
+        where: { groupAccountId: idsArray, userId: userIdValue },
+      });
+      return res.json(passwordbookEntry);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  };
+
   add = async (req, res) => {
     const newPwBookEntry = req.body;
     try {
