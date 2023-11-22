@@ -18,12 +18,14 @@ module.exports = {
         user_name: 'watermelon',
         email: 'watermelon@watermelon.com',
         password: 'watermelon123',
+        group_account_id: 3,
       },
       {
-        user_id: 2,
+        user_id: 1,
         user_name: 'lemon',
         email: 'lemon@lemon.com',
         password: 'lemon123',
+        group_account_id: 2,
       },
       {
         user_id: 3,
@@ -33,16 +35,11 @@ module.exports = {
         group_account_id: 1,
       },
       {
-        user_id: 3,
-        user_name: 'kiwiwik',
-        email: 'kiwiwik@kiwi.com',
-        password: 'kiwi1234',
-      },
-      {
-        user_id: 3,
-        user_name: 'kiwikiwi',
-        email: 'kiwikiwi@kiwi.com',
+        user_id: 1,
+        user_name: 'kiwi',
+        email: 'kiwi@kiwi.com',
         password: 'kiwi123',
+        group_account_id: 1,
       },
     ]);
   },

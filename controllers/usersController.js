@@ -35,6 +35,7 @@ class UsersController extends BaseController {
     }
   };
 
+  // Get multiple Ids through emails
   getMultipleIds = async (req, res) => {
     const { multipleEmails } = req.params;
 
@@ -172,7 +173,7 @@ class UsersController extends BaseController {
 
   // Method to delete a shared account for a user
   sharedDelete = async (req, res) => {
-    const { groupAccountId } = req.params;
+    const { userId, groupAccountId } = req.params;
     try {
       // Find the user and group account by their respective IDs
       const user = await this.model.findByPk(userId);
@@ -316,6 +317,7 @@ class UsersController extends BaseController {
     }
   };
 
+  //Method to changepassword
   changePassword = async (req, res) => {
     const { password } = req.body;
     console.log(password);
@@ -329,7 +331,7 @@ class UsersController extends BaseController {
       // Update the user's properties using Sequelize's update method
       const data = await userToEdit.update({ password: hashedPassword });
       // Respond with JSON containing the list of users and a success message
-      res.json({ user: data, message: "success" });
+      res.json({ user: data, message: 'success' });
     } catch (err) {
       // Handle errors and respond with an error JSON
       return res.status(400).json({ error: true, msg: err });

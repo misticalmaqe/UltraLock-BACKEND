@@ -15,21 +15,15 @@ module.exports = {
     await queryInterface.bulkInsert('users', [
       {
         email: 'watermelon@watermelon.com',
-        password: 'watermelon123',
-        profile_photo:
-          'https://images.unsplash.com/photo-1539248519424-b4b8f9a99a4a?q=80&w=2219&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        password: 'password123',
       },
       {
         email: 'lemon@lemon.com',
-        password: 'lemon123',
-        profile_photo:
-          'https://images.unsplash.com/photo-1580412092181-219a7b10e6ce?q=80&w=2505&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        password: 'password123',
       },
       {
         email: 'kiwi@kiwi.com',
-        password: 'kiwi123',
-        profile_photo:
-          'https://images.unsplash.com/photo-1584209742773-f7b461564449?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        password: 'password123',
       },
     ]);
   },

@@ -6,6 +6,7 @@ class GroupAccountsController extends BaseController {
     this.user = user;
   }
 
+  //Get multiple personal groups
   getMultiplePersonal = async (req, res) => {
     const { groupAccountIds } = req.params;
 
@@ -27,6 +28,7 @@ class GroupAccountsController extends BaseController {
     }
   };
 
+  //Get group account by Id
   getOne = async (req, res) => {
     const { groupAccountId } = req.params;
     try {
@@ -37,6 +39,7 @@ class GroupAccountsController extends BaseController {
     }
   };
 
+  //create group account
   add = async (req, res) => {
     const newGroupAccount = req.body;
     try {
@@ -47,6 +50,7 @@ class GroupAccountsController extends BaseController {
     }
   };
 
+  //edit group account
   edit = async (req, res) => {
     const groupAccountToAdd = req.body;
     const groupAccountToReplace = req.params.id;
@@ -62,6 +66,7 @@ class GroupAccountsController extends BaseController {
     }
   };
 
+  //delete group account
   delete = async (req, res) => {
     let groupAccountIdToDelete = req.params.id;
     try {

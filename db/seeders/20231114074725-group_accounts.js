@@ -17,6 +17,14 @@ module.exports = {
         group_name: 'friendster',
         private_shared: true,
       },
+      {
+        group_name: 'myspace',
+        private_shared: false,
+      },
+      {
+        group_name: 'friendster',
+        private_shared: false,
+      },
     ]);
   },
 

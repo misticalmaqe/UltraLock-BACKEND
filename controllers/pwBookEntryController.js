@@ -5,6 +5,7 @@ class PwBookEntryController extends BaseController {
     super(model);
   }
 
+  //get passwordbook entry by Id
   getOne = async (req, res) => {
     const { passwordbookEntryId } = req.params;
     try {
@@ -15,6 +16,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //get all passwordbook entries by user Id
   getByUserId = async (req, res) => {
     const { userId } = req.params;
     try {
@@ -27,6 +29,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //get all passwordbook entries by groupAccount Id
   getByGroupId = async (req, res) => {
     const { groupAccountId } = req.params;
     try {
@@ -39,6 +42,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //get multiple passwordbook entries by groupAccount Ids
   getByGroupIdForSA = async (req, res) => {
     const { groupAccountId } = req.params;
     const userId = req.body;
@@ -56,6 +60,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //create passwordbook entry
   add = async (req, res) => {
     const newPwBookEntry = req.body;
     try {
@@ -67,6 +72,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //edit passwordbook entry
   edit = async (req, res) => {
     const pwBookToAdd = req.body;
     const pwBookToReplace = req.params.id;
@@ -80,6 +86,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //delete passwordbook entry
   delete = async (req, res) => {
     let pwBookIdToDelete = req.params.id;
     try {
@@ -92,6 +99,7 @@ class PwBookEntryController extends BaseController {
     }
   };
 
+  //delete passwordbook entries by group Id
   deleteByGroupAId = async (req, res) => {
     let groupAccountId = req.params;
     console.log(groupAccountId);

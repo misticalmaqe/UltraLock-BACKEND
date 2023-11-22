@@ -7,12 +7,12 @@ class UsersRouter {
     this.jwtAuth = jwtAuth;
   }
   routes = () => {
-    //jwt routes
+    //-----------JWT Route-----------//
     router.get('/jwtTest', this.jwtAuth, this.controller.jwtTest);
     router.post('/jwtsignup', this.controller.jwtSignUp);
     router.post('/jwtsignin', this.controller.jwtSignIn);
 
-    //for users
+    //-----------Users Route-----------//
     router.get('/', this.controller.getAll);
     router.get('/:usersId', this.controller.getOne);
     router.post('/', this.controller.add);
@@ -21,9 +21,9 @@ class UsersRouter {
     router.get('/multiple/:multipleEmails', this.controller.getMultipleIds);
 
     //-----------Change Password Route-----------//
-    router.put("/changePassword/:userid", this.controller.changePassword);
+    router.put('/changePassword/:userid', this.controller.changePassword);
 
-    //for shared accounts
+    //-----------Shared Acount Route-----------//
     router.get('/shared/:id', this.controller.getShared);
     router.post('/shared', this.controller.sharedAdd);
     router.put('/shared/:id', this.controller.sharedEdit);
