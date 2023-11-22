@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // Retrieve environment variables
-const SALTVALUE = process.env.DB_SALT;
+
 const SECRETKEY = process.env.DB_SECRETKEY;
 
 // Define UsersController class extending BaseController
@@ -295,19 +295,24 @@ class UsersController extends BaseController {
         .json({ error: true, msg: "Error updating password" });
     }
   };
-  changePassword = async (req, res) => {
-    const { newPassword, email, userId } = req.body;
 
+  changePassword = async (req, res) => {
+    const { password } = req.body;
+    console.log(password);
+    const saltRounds = parseInt(process.env.DB_SALT);
+
+    const user = req.params.userid;
     try {
-      const saltRounds = parseInt(process.env.DB_SALT);
-      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-      await this.model.update(
-        { password: hashedPassword },
-        { where: { email: email } }
-      );
-    } catch (error) {
-      console.error("Error changing password:", error);
-      res.status(500).json({ error: true, msg: "Internal Server Error" });
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      // Find the user to edit by ID
+      const userToEdit = await this.model.findByPk(user);
+      // Update the user's properties using Sequelize's update method
+      const data = await userToEdit.update({ password: hashedPassword });
+      // Respond with JSON containing the list of users and a success message
+      res.json({ user: data, message: "success" });
+    } catch (err) {
+      // Handle errors and respond with an error JSON
+      return res.status(400).json({ error: true, msg: err });
     }
   };
 }

@@ -18,8 +18,10 @@ class UsersRouter {
     router.post("/", this.controller.add);
     router.put("/:id", this.controller.edit);
     router.delete("/:id", this.controller.delete);
+
     //-----------Change Password Route-----------//
-    router.post("/changePassword", this.controller.changePassword);
+    router.put("/changePassword/:userid", this.controller.changePassword);
+
     //for shared accounts
     router.get("/shared/:id", this.controller.getShared);
     router.post("/shared/", this.controller.sharedAdd);
