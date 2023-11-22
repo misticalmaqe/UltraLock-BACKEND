@@ -171,7 +171,7 @@ class UsersController extends BaseController {
 
   // Method to delete a shared account for a user
   sharedDelete = async (req, res) => {
-    const { userId, groupAccountId } = req.body;
+    const { groupAccountId } = req.params;
     try {
       // Find the user and group account by their respective IDs
       const user = await this.model.findByPk(userId);

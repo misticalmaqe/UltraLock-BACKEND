@@ -29,14 +29,9 @@ class PwBookEntryController extends BaseController {
 
   getByGroupId = async (req, res) => {
     const { groupAccountId } = req.params;
-    const userId = req.body;
-    //extract out the value and put into userIdValue
-    const userIdValue = userId.userId;
     try {
-      const idsArray = groupAccountId.split(',');
-
       const passwordbookEntry = await this.model.findAll({
-        where: { groupAccountId: idsArray, userId: userIdValue },
+        where: { groupAccountId: groupAccountId },
       });
       return res.json(passwordbookEntry);
     } catch (err) {
@@ -90,6 +85,21 @@ class PwBookEntryController extends BaseController {
     try {
       const pwBookToDelete = await this.model.findByPk(pwBookIdToDelete);
       await pwBookToDelete.destroy();
+      res.json({ message: 'success' });
+    } catch (err) {
+      console.error(err);
+      res.status(400).json({ message: 'Error deleting user' });
+    }
+  };
+
+  deleteByGroupAId = async (req, res) => {
+    let groupAccountId = req.params;
+    console.log(groupAccountId);
+    try {
+      const pwBooksToDelete = await this.model.findByAll({
+        where: groupAccountId,
+      });
+      await pwBooksToDelete.destroy();
       res.json({ message: 'success' });
     } catch (err) {
       console.error(err);
