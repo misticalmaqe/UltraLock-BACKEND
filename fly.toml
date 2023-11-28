@@ -10,16 +10,6 @@ primary_region = "sin"
 
 [deploy]
   
- 
- [env]
-  PORT = "8080"
-  USERNAME = "postgres"
-  PASSWORD = "t0gaYVysg5JOaiW"
-  DATABASE = "ultralock"
-  HOST = "ultralock-db.internal"
-  DIALECT = "postgres"
-  NODE_ENV = "production"
-  
 [http_service]
   internal_port = 8080
   force_https = true
