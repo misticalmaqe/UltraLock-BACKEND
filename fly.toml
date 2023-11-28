@@ -1,0 +1,34 @@
+# fly.toml app configuration file generated for ultralock on 2023-11-28T10:19:19+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "ultralock"
+primary_region = "sin"
+
+[build]
+
+[deploy]
+  
+ 
+ [env]
+  PORT = "8080"
+  USERNAME = "postgres"
+  PASSWORD = "t0gaYVysg5JOaiW"
+  DATABASE = "ultralock"
+  HOST = "ultralock-db.internal"
+  DIALECT = "postgres"
+  NODE_ENV = "production"
+  
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256

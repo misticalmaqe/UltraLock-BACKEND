@@ -2,7 +2,7 @@
   "name": "project3-backend-bootcamp",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -15,6 +15,7 @@
     "sequelize": "^6.35.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.11",
     "eslint": "^8.16.0",
     "sequelize-cli": "^6.6.2"
   }
